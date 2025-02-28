@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 export default function Posts() {
   const [data, setData] = useState<TPosts>([]);
   const [error, setError] = useState<string>("");
-  
 
   useEffect(() => {
     const getFetch = async () => {
@@ -20,7 +19,6 @@ export default function Posts() {
         } else {
           throw new Error("Error catched in Posts component");
         }
-
         getFetch();
       } catch (error) {
         setError("Error catched in Posts component");
