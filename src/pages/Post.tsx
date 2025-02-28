@@ -29,6 +29,27 @@ export default function Post() {
     getPost();
   }, []);
 
+  const [postBody, setpostBody] = useState<TPost>(null);
+
+  const getPostBody = async () => {
+    try {
+      const response = await axios.get(
+        `https://jsonplaceholder.typicode.com/posts/${id}`
+      );
+      if (response.status === 200) {
+        const data = response.data;
+        setpostBody(data);
+        setLoading(false);
+      } else {
+        throw new Error("Failed to get post body");
+      }
+    } catch (error: any) {
+      setError("Failed to get post body");
+    }
+  };
+
+  const hidePostBody = async () => setpostBody(null);
+
   return (
     <div>
       {error ? (
@@ -38,7 +59,11 @@ export default function Post() {
       ) : (
         <>
           <h1>{post?.title}</h1>{" "}
-          <p>You clicked on post, whose id is {post?.id}</p>
+          <h3>You clicked on post, whose id is {post?.id}</h3>
+          <button onClick={postBody ? hidePostBody : getPostBody}>
+            {postBody ? "Hide post body" : "Show post body"}
+          </button>
+          {postBody ? <p>{postBody?.body}</p> : null}
         </>
       )}
     </div>
