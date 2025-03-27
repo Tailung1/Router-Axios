@@ -27,7 +27,6 @@ export default function Posts() {
     getFetch();
   }, []);
 
-
   return (
     <div>
       {error ? (
